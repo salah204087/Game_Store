@@ -1,4 +1,7 @@
+using Game_StoreAPI;
 using Game_StoreAPI.Data;
+using Game_StoreAPI.Repository;
+using Game_StoreAPI.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 // Add services to the container.
+builder.Services.AddScoped<IGameTypeRepository, GameTypeRepository>();
+
+builder.Services.AddAutoMapper(typeof(Mapping));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

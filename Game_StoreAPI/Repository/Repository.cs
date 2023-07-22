@@ -1,6 +1,7 @@
 ﻿using Game_StoreAPI.Data;
 using Game_StoreAPI.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Game_StoreAPI.Repository
 {
@@ -19,11 +20,13 @@ namespace Game_StoreAPI.Repository
             Save();
         }
 
-        public T Get(bool tracked = true, string? includeproperties = null)
+        public T Get(Expression<Func<T, bool>>? filter = null,bool tracked = true, string? includeproperties = null)
         {
             IQueryable<T> query = dbSet;
             if (!tracked)
                 query = query.AsNoTracking();
+            if (filter != null)
+                query = query.Where(filter);
             if (includeproperties != null)
             {
                 foreach (var property in includeproperties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries)) 
