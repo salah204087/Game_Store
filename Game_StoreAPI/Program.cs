@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddScoped<IGameTypeRepository, GameTypeRepository>();
+builder.Services.AddScoped<IGameCompanyRepository, GameCompanyRepository>();
 
 builder.Services.AddAutoMapper(typeof(Mapping));
 

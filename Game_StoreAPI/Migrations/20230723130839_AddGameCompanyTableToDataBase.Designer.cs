@@ -4,6 +4,7 @@ using Game_StoreAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game_StoreAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230723130839_AddGameCompanyTableToDataBase")]
+    partial class AddGameCompanyTableToDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,8 +36,8 @@ namespace Game_StoreAPI.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EstablishmentDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("EstablishmentDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -47,48 +50,6 @@ namespace Game_StoreAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GameCompanies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Details = "Nintendo Co., Ltd.[b] is a Japanese multinational video game company headquartered in Kyoto. It develops, publishes and releases both video games and video game consoles.",
-                            EstablishmentDate = "23 September 1889",
-                            ImageUrl = "https://persiadigest.com/wp-content/uploads/2022/05/3-new-SNES-and-NES-games-are-now-available.jpg",
-                            Name = "Nintendo"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Details = "Ubisoft Entertainment SA (/ˈjuːbisɒft/; French: [ybisɔft];[5] formerly Ubi Soft Entertainment SA) is a French video game publisher headquartered in Saint-Mandé with development studios across the world. Its video game franchises include Assassin's Creed, Far Cry, For Honor, Just Dance, Prince of Persia, Rabbids, Rayman, Tom Clancy's, and Watch Dogs.",
-                            EstablishmentDate = "28 March 1986",
-                            ImageUrl = "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/YSIZCJEAI5PDDLYHNZZCI5F2FI.jpg",
-                            Name = "Ubisoft"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Details = "Electronic Arts Inc. (EA) is an American video game company headquartered in Redwood City, California.",
-                            EstablishmentDate = "27 May 1982",
-                            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Electronic-Arts-Logo.svg/1200px-Electronic-Arts-Logo.svg.png",
-                            Name = "Electronic Arts"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Details = "Activision Blizzard, Inc.is an American video game holding company based in Santa Monica, California.",
-                            EstablishmentDate = "10 July 2008",
-                            ImageUrl = "https://www.videogameschronicle.com/files/2022/01/activision-blizzard-logo.jpg",
-                            Name = "Activision Blizzard"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Details = "Epic Games, Inc. is an American video game and software developer and publisher based in Cary, North Carolina. The company was founded by Tim Sweeney as Potomac Computer Systems in 1991, originally located in his parents' house in Potomac, Maryland.",
-                            EstablishmentDate = "1991",
-                            ImageUrl = "https://cdn2.unrealengine.com/epic-newsroom-share-1200x630-8c559c81a614.jpg",
-                            Name = "Epic Games"
-                        });
                 });
 
             modelBuilder.Entity("Game_StoreAPI.Models.GameType", b =>
@@ -122,41 +83,41 @@ namespace Game_StoreAPI.Migrations
                         {
                             Id = 1,
                             About = "An adventure game (rarely called quest game) is a video game genre in which the player assumes the role of a protagonist in an interactive story, driven by exploration and/or puzzle-solving.",
-                            AddedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9370),
+                            AddedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2613),
                             Name = "Adventure game",
-                            UpdatedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9417)
+                            UpdatedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2686)
                         },
                         new
                         {
                             Id = 2,
                             About = "Action games emphasize physical challenges that require hand-eye coordination and motor skill to overcome. They center around the player, who is in control of most of the action. Most of the earliest video games were considered action games; today, it is still a vast genre covering all games that involve physical challenges.",
-                            AddedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9421),
+                            AddedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2689),
                             Name = "Action",
-                            UpdatedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9422)
+                            UpdatedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2691)
                         },
                         new
                         {
                             Id = 3,
                             About = "Simulation video games are a diverse super-category of video games, generally designed to closely simulate real world activities",
-                            AddedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9425),
+                            AddedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2693),
                             Name = "Simulation video game",
-                            UpdatedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9426)
+                            UpdatedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2694)
                         },
                         new
                         {
                             Id = 4,
                             About = "A sports video game is a video game that simulates the practice of sports. Most sports have been recreated with a video games, including team sports, track and field, extreme sports, and combat sports.",
-                            AddedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9428),
+                            AddedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2696),
                             Name = "Sports",
-                            UpdatedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9430)
+                            UpdatedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2698)
                         },
                         new
                         {
                             Id = 5,
                             About = "Platform games (or platformers) have gameplay primarily centered around jumping and climbing to navigate the player's environment. They may have enemies or obstacles to avoid and fight or may just be pure jumping puzzles.",
-                            AddedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9431),
+                            AddedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2700),
                             Name = "Platform game",
-                            UpdatedDate = new DateTime(2023, 7, 23, 16, 39, 2, 636, DateTimeKind.Local).AddTicks(9433)
+                            UpdatedDate = new DateTime(2023, 7, 23, 16, 8, 39, 510, DateTimeKind.Local).AddTicks(2701)
                         });
                 });
 #pragma warning restore 612, 618
