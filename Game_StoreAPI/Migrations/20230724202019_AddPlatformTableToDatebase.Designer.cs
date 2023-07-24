@@ -4,6 +4,7 @@ using Game_StoreAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game_StoreAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230724202019_AddPlatformTableToDatebase")]
+    partial class AddPlatformTableToDatebase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,41 +125,41 @@ namespace Game_StoreAPI.Migrations
                         {
                             Id = 1,
                             About = "An adventure game (rarely called quest game) is a video game genre in which the player assumes the role of a protagonist in an interactive story, driven by exploration and/or puzzle-solving.",
-                            AddedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(922),
+                            AddedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1419),
                             Name = "Adventure game",
-                            UpdatedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(988)
+                            UpdatedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1482)
                         },
                         new
                         {
                             Id = 2,
                             About = "Action games emphasize physical challenges that require hand-eye coordination and motor skill to overcome. They center around the player, who is in control of most of the action. Most of the earliest video games were considered action games; today, it is still a vast genre covering all games that involve physical challenges.",
-                            AddedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(994),
+                            AddedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1488),
                             Name = "Action",
-                            UpdatedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(997)
+                            UpdatedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1492)
                         },
                         new
                         {
                             Id = 3,
                             About = "Simulation video games are a diverse super-category of video games, generally designed to closely simulate real world activities",
-                            AddedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(1002),
+                            AddedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1496),
                             Name = "Simulation video game",
-                            UpdatedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(1006)
+                            UpdatedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1500)
                         },
                         new
                         {
                             Id = 4,
                             About = "A sports video game is a video game that simulates the practice of sports. Most sports have been recreated with a video games, including team sports, track and field, extreme sports, and combat sports.",
-                            AddedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(1010),
+                            AddedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1504),
                             Name = "Sports",
-                            UpdatedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(1013)
+                            UpdatedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1507)
                         },
                         new
                         {
                             Id = 5,
                             About = "Platform games (or platformers) have gameplay primarily centered around jumping and climbing to navigate the player's environment. They may have enemies or obstacles to avoid and fight or may just be pure jumping puzzles.",
-                            AddedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(1017),
+                            AddedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1512),
                             Name = "Platform game",
-                            UpdatedDate = new DateTime(2023, 7, 24, 23, 27, 24, 473, DateTimeKind.Local).AddTicks(1020)
+                            UpdatedDate = new DateTime(2023, 7, 24, 23, 20, 19, 454, DateTimeKind.Local).AddTicks(1515)
                         });
                 });
 
@@ -176,48 +179,6 @@ namespace Game_StoreAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Platforms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "PS4"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "PS5"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "PC"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Nintendo"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Xbox One S"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Xbox One X"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Xbox Series X"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Xbox Series S"
-                        });
                 });
 #pragma warning restore 612, 618
         }

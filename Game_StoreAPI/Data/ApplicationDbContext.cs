@@ -12,6 +12,7 @@ namespace Game_StoreAPI.Data
         }
         public DbSet<GameType> GameTypes { get; set; }
         public DbSet<GameCompany> GameCompanies { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -99,6 +100,50 @@ namespace Game_StoreAPI.Data
                     ImageUrl= "https://cdn2.unrealengine.com/epic-newsroom-share-1200x630-8c559c81a614.jpg",
                     EstablishmentDate= "1991"
                 }
+            );
+            modelBuilder.Entity<Platform>().HasData(
+                new Platform
+                {
+                    Id=1,
+                    Name="PS4"
+                },
+                new Platform
+                {
+                    Id=2,
+                    Name="PS5"
+                },
+                new Platform
+                {
+                    Id =3,
+                    Name="PC"
+                },
+                new Platform
+                {
+                    Id=4,
+                    Name= "Nintendo",
+                },
+                new Platform
+                {
+                    Id=5,
+                    Name= "Xbox One S"
+                },
+                new Platform
+                {
+                    Id=6,
+                    Name= "Xbox One X",
+                },
+                new Platform
+                {
+                    Id=7,
+                    Name= "Xbox Series X"
+                },
+                new Platform
+                {
+                    Id=8,
+                    Name= "Xbox Series S"
+                }
+
+
             );
         }
     }
