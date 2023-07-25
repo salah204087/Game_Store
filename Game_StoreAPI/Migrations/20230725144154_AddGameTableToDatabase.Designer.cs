@@ -4,6 +4,7 @@ using Game_StoreAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game_StoreAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230725144154_AddGameTableToDatabase")]
+    partial class AddGameTableToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,10 +47,6 @@ namespace Game_StoreAPI.Migrations
                     b.Property<int>("GameTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -72,64 +71,6 @@ namespace Game_StoreAPI.Migrations
                     b.HasIndex("GameTypeId");
 
                     b.ToTable("Games");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9486),
-                            Description = "The game is played from either a third-person or first-person perspective, and its world is navigated on foot and by vehicle. Players control the three lead protagonists throughout single-player and switch among them, both during and outside missions.",
-                            GameCompanyId = 4,
-                            GameTypeId = 1,
-                            ImageUrl = "https://c4.wallpaperflare.com/wallpaper/642/482/458/gun-skull-monkey-mask-rockstar-hd-wallpaper-preview.jpg",
-                            Name = "Grand Theft Auto V",
-                            Price = 70f,
-                            Quantity = 6,
-                            Rate = 4.5f,
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9489)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9493),
-                            Description = "Call of Duty: Modern Warfare is a 2019 first-person shooter video game developed by Infinity Ward and published by Activision.",
-                            GameCompanyId = 4,
-                            GameTypeId = 2,
-                            ImageUrl = "https://c4.wallpaperflare.com/wallpaper/790/727/718/face-mask-mask-military-armor-call-of-duty-hd-wallpaper-preview.jpg",
-                            Name = "Call of Duty Modern Warfare",
-                            Price = 60f,
-                            Quantity = 10,
-                            Rate = 4f,
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9495)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9497),
-                            Description = "Assassin's Creed Origins is a 2017 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.",
-                            GameCompanyId = 2,
-                            GameTypeId = 1,
-                            ImageUrl = "https://c4.wallpaperflare.com/wallpaper/643/1018/529/4k-hieroglyphs-bayek-assassins-creed-origins-wallpaper-preview.jpg",
-                            Name = "Assassin's Creed Origins",
-                            Price = 50f,
-                            Quantity = 6,
-                            Rate = 5f,
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9499)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9501),
-                            Description = "God of War is an action-adventure game franchise created by David Jaffe at Sony's Santa Monica Studio.",
-                            GameCompanyId = 5,
-                            GameTypeId = 1,
-                            ImageUrl = "https://c4.wallpaperflare.com/wallpaper/280/925/183/kratos-god-of-war-4-god-of-war-2018-games-wallpaper-preview.jpg",
-                            Name = "God of War",
-                            Price = 90f,
-                            Quantity = 5,
-                            Rate = 4.5f,
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9503)
-                        });
                 });
 
             modelBuilder.Entity("Game_StoreAPI.Models.GameCompany", b =>
@@ -201,21 +142,6 @@ namespace Game_StoreAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Game_StoreAPI.Models.GamePlatform", b =>
-                {
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlatformId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameId", "PlatformId");
-
-                    b.HasIndex("PlatformId");
-
-                    b.ToTable("GamePlatform");
-                });
-
             modelBuilder.Entity("Game_StoreAPI.Models.GameType", b =>
                 {
                     b.Property<int>("Id")
@@ -247,41 +173,41 @@ namespace Game_StoreAPI.Migrations
                         {
                             Id = 1,
                             About = "An adventure game (rarely called quest game) is a video game genre in which the player assumes the role of a protagonist in an interactive story, driven by exploration and/or puzzle-solving.",
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9246),
+                            AddedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(1988),
                             Name = "Adventure game",
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9297)
+                            UpdatedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2034)
                         },
                         new
                         {
                             Id = 2,
                             About = "Action games emphasize physical challenges that require hand-eye coordination and motor skill to overcome. They center around the player, who is in control of most of the action. Most of the earliest video games were considered action games; today, it is still a vast genre covering all games that involve physical challenges.",
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9300),
+                            AddedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2037),
                             Name = "Action",
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9301)
+                            UpdatedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2039)
                         },
                         new
                         {
                             Id = 3,
                             About = "Simulation video games are a diverse super-category of video games, generally designed to closely simulate real world activities",
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9303),
+                            AddedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2041),
                             Name = "Simulation video game",
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9304)
+                            UpdatedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2043)
                         },
                         new
                         {
                             Id = 4,
                             About = "A sports video game is a video game that simulates the practice of sports. Most sports have been recreated with a video games, including team sports, track and field, extreme sports, and combat sports.",
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9306),
+                            AddedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2045),
                             Name = "Sports",
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9308)
+                            UpdatedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2046)
                         },
                         new
                         {
                             Id = 5,
                             About = "Platform games (or platformers) have gameplay primarily centered around jumping and climbing to navigate the player's environment. They may have enemies or obstacles to avoid and fight or may just be pure jumping puzzles.",
-                            AddedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9309),
+                            AddedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2048),
                             Name = "Platform game",
-                            UpdatedDate = new DateTime(2023, 7, 25, 18, 38, 37, 100, DateTimeKind.Local).AddTicks(9311)
+                            UpdatedDate = new DateTime(2023, 7, 25, 17, 41, 54, 264, DateTimeKind.Local).AddTicks(2050)
                         });
                 });
 
@@ -293,12 +219,17 @@ namespace Game_StoreAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId");
 
                     b.ToTable("Platforms");
 
@@ -364,33 +295,16 @@ namespace Game_StoreAPI.Migrations
                     b.Navigation("GameType");
                 });
 
-            modelBuilder.Entity("Game_StoreAPI.Models.GamePlatform", b =>
+            modelBuilder.Entity("Game_StoreAPI.Models.Platform", b =>
                 {
-                    b.HasOne("Game_StoreAPI.Models.Game", "Game")
-                        .WithMany("GamePlatform")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Game_StoreAPI.Models.Platform", "Platform")
-                        .WithMany("GamePlatform")
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Platform");
+                    b.HasOne("Game_StoreAPI.Models.Game", null)
+                        .WithMany("Platform")
+                        .HasForeignKey("GameId");
                 });
 
             modelBuilder.Entity("Game_StoreAPI.Models.Game", b =>
                 {
-                    b.Navigation("GamePlatform");
-                });
-
-            modelBuilder.Entity("Game_StoreAPI.Models.Platform", b =>
-                {
-                    b.Navigation("GamePlatform");
+                    b.Navigation("Platform");
                 });
 #pragma warning restore 612, 618
         }

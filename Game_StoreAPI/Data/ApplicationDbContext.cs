@@ -13,8 +13,22 @@ namespace Game_StoreAPI.Data
         public DbSet<GameType> GameTypes { get; set; }
         public DbSet<GameCompany> GameCompanies { get; set; }
         public DbSet<Platform> Platforms { get; set; }
+        public DbSet<GamePlatform> GamePlatform { get; set; }
+        public DbSet<Game> Games { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<GamePlatform>().HasKey(gp => new
+            {
+                gp.GameId,
+                gp.PlatformId
+            });
+
+            modelBuilder.Entity<GamePlatform>().HasOne(n=>n.Game).WithMany(n=>n.GamePlatform).HasForeignKey(n=>n.GameId);
+            modelBuilder.Entity<GamePlatform>().HasOne(n => n.Platform).WithMany(n => n.GamePlatform).HasForeignKey(n => n.PlatformId);
+
+
+
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<GameType>().HasData(
                 new GameType
@@ -142,8 +156,66 @@ namespace Game_StoreAPI.Data
                     Id=8,
                     Name= "Xbox Series S"
                 }
+            );
 
+            modelBuilder.Entity<Game>().HasData(
 
+                new Game
+                {
+                    Id=1,
+                    Name= "Grand Theft Auto V",
+                    Description= "The game is played from either a third-person or first-person perspective, and its world is navigated on foot and by vehicle. Players control the three lead protagonists throughout single-player and switch among them, both during and outside missions.",
+                    Price=70,
+                    Rate=4.5f,
+                    Quantity=6,
+                    ImageUrl= "https://c4.wallpaperflare.com/wallpaper/642/482/458/gun-skull-monkey-mask-rockstar-hd-wallpaper-preview.jpg",
+                    GameCompanyId=4,
+                    GameTypeId=1,
+                    AddedDate=DateTime.Now,
+                    UpdatedDate=DateTime.Now,
+                },
+                new Game
+                {
+                    Id=2,
+                    Name= "Call of Duty Modern Warfare",
+                    Description= "Call of Duty: Modern Warfare is a 2019 first-person shooter video game developed by Infinity Ward and published by Activision.",
+                    Price=60,
+                    Rate=4,
+                    Quantity=10,
+                    ImageUrl= "https://c4.wallpaperflare.com/wallpaper/790/727/718/face-mask-mask-military-armor-call-of-duty-hd-wallpaper-preview.jpg",
+                    GameCompanyId=4,
+                    GameTypeId=2,
+                    AddedDate=DateTime.Now,
+                    UpdatedDate=DateTime.Now
+                },
+                new Game
+                {
+                    Id=3,
+                    Name= "Assassin's Creed Origins",
+                    Description= "Assassin's Creed Origins is a 2017 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.",
+                    Price=50,
+                    Rate=5,
+                    Quantity=6,
+                    ImageUrl= "https://c4.wallpaperflare.com/wallpaper/643/1018/529/4k-hieroglyphs-bayek-assassins-creed-origins-wallpaper-preview.jpg",
+                    GameCompanyId=2,
+                    GameTypeId=1,
+                    AddedDate=DateTime.Now,
+                    UpdatedDate=DateTime.Now,
+                },
+                new Game
+                {
+                    Id =4,
+                    Name= "God of War",
+                    Description= "God of War is an action-adventure game franchise created by David Jaffe at Sony's Santa Monica Studio.",
+                    Price=90,
+                    Rate=4.5f,
+                    Quantity=5,
+                    ImageUrl= "https://c4.wallpaperflare.com/wallpaper/280/925/183/kratos-god-of-war-4-god-of-war-2018-games-wallpaper-preview.jpg",
+                    GameCompanyId=5,
+                    GameTypeId=1,
+                    AddedDate=DateTime.Now,
+                    UpdatedDate=DateTime.Now,
+                }
             );
         }
     }
