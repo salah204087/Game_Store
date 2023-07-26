@@ -8,5 +8,6 @@ namespace Game_StoreAPI.Models.DTO
         [Required]
         [MaxLength(25)]
         public string? Name { get; set; }
+        public List<GamePlatform>? GamePlatform { get; set; }
     }
 }

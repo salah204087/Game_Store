@@ -20,7 +20,7 @@ namespace Game_StoreAPI.Repository
             Save();
         }
 
-        public T Get(Expression<Func<T, bool>>? filter = null,bool tracked = true, string? includeproperties = null)
+        public T Get(Expression<Func<T, bool>>? filter = null,bool tracked = true, List<string>? includeproperties = null)
         {
             IQueryable<T> query = dbSet;
             if (!tracked)
@@ -29,19 +29,26 @@ namespace Game_StoreAPI.Repository
                 query = query.Where(filter);
             if (includeproperties != null)
             {
-                foreach (var property in includeproperties.Split(new char[] {','},StringSplitOptions.RemoveEmptyEntries)) 
-                    query = query.Include(property);
+                foreach (var property in includeproperties)
+                {
+                    foreach (var item in property.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                        query = query.Include(item);
+                }
+                   
             }
             return query.FirstOrDefault();
         }
 
-        public List<T> GetAll(string? includeproperties = null)
+        public List<T> GetAll(List<string>? includeproperties = null)
         {
-            IQueryable<T> query=dbSet;
-            if (includeproperties!= null)
+            IQueryable<T> query = dbSet;
+            if (includeproperties != null)
             {
-                foreach (var property in includeproperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                    query = query.Include(property);
+                foreach (var property in includeproperties)
+                {
+                    foreach (var item in property.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                        query = query.Include(item);
+                }
             }
             return query.ToList();
         }

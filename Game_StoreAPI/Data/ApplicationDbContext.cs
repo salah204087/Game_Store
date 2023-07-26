@@ -217,6 +217,49 @@ namespace Game_StoreAPI.Data
                     UpdatedDate=DateTime.Now,
                 }
             );
+            modelBuilder.Entity<GamePlatform>().HasData(
+
+                new GamePlatform
+                {
+                    GameId=1,
+                    PlatformId=1
+                },
+                new GamePlatform
+                {
+                     GameId = 1,
+                     PlatformId = 2
+                },
+                new GamePlatform
+                {
+                     GameId = 1,
+                     PlatformId = 3
+                },
+                new GamePlatform
+                {
+                    GameId=2,
+                    PlatformId=3
+                },
+                new GamePlatform
+                {
+                    GameId=3,
+                    PlatformId=3
+                },
+                new GamePlatform
+                {
+                    GameId=4,
+                    PlatformId=1
+                },
+                new GamePlatform
+                {
+                     GameId = 4,
+                     PlatformId = 2
+                },
+                new GamePlatform
+                {
+                    GameId = 4,
+                    PlatformId = 3
+                }
+                );
         }
     }
 

@@ -18,6 +18,13 @@ namespace Game_StoreAPI
 
             CreateMap<Platform, PlatformDTO>().ReverseMap();
             CreateMap<Platform,PlatformCreateDTO>().ReverseMap();
+
+            CreateMap<Game,GameDTO>().ReverseMap();
+            CreateMap<Game,GameCreateDTO>().ReverseMap();
+            CreateMap<Game,GameUpdateDTO>().ReverseMap();
+
+            CreateMap<GamePlatform,GamePlatformDTO>().ReverseMap();
+            CreateMap<GamePlatform,GamePlatformCreateDTO>().ReverseMap();
         }
     }
 }
