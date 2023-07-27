@@ -26,7 +26,7 @@ namespace Game_StoreAPI.Controllers
             _response = new APIResponse();
         }
         [HttpGet]
-        [ResponseCache(Duration =30)]
+        [ResponseCache(Duration = 30)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult<APIResponse> GetGames()
@@ -47,8 +47,8 @@ namespace Game_StoreAPI.Controllers
             }
             return _response;
         }
-        [HttpGet("{id:int}",Name ="GetGame")]
-        [ResponseCache(Duration =30)]
+        [HttpGet("{id:int}", Name = "GetGame")]
+        [ResponseCache(Duration = 30)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -59,13 +59,13 @@ namespace Game_StoreAPI.Controllers
             {
                 List<string> Properties = new List<string> { "GameCompany", "GameType", "GamePlatform" };
                 IEnumerable<Game> games = _contextGame.GetAll(includeproperties: Properties);
-                if (id==0)
+                if (id == 0)
                 {
                     _response.IsSuccess = false;
                     return BadRequest();
                 }
-                var game=_contextGame.Get(n=>n.Id==id, includeproperties: Properties);
-                if (game==null)
+                var game = _contextGame.Get(n => n.Id == id, includeproperties: Properties);
+                if (game == null)
                 {
                     _response.IsSuccess = false;
                     return NotFound();
@@ -75,7 +75,7 @@ namespace Game_StoreAPI.Controllers
                 _response.StatusCode = HttpStatusCode.OK;
                 return Ok(_response);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _response.IsSuccess = false;
                 _response.ErrorMessages = new List<string> { ex.ToString() };
@@ -113,8 +113,8 @@ namespace Game_StoreAPI.Controllers
                     foreach (var platformId in gameCreateDTO.PlatformIds)
                     {
                         var gamePlatform = new GamePlatformCreateDTO { GameId = model.Id, PlatformId = platformId };
-                        var platform=_contextPlatform.Get(n=>n.Id==platformId);
-                        var modelGamePlatform = new GamePlatform{ GameId = model.Id, PlatformId = platformId,Game=model,Platform=platform};
+                        var platform = _contextPlatform.Get(n => n.Id == platformId);
+                        var modelGamePlatform = new GamePlatform { GameId = model.Id, PlatformId = platformId, Game = model, Platform = platform };
                         _contextGamePlatform.Create(modelGamePlatform);
                     }
                 }
@@ -133,7 +133,7 @@ namespace Game_StoreAPI.Controllers
 
             return _response;
         }
-        [HttpDelete("{id:int}",Name ="DeleteGame")]
+        [HttpDelete("{id:int}", Name = "DeleteGame")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -145,11 +145,11 @@ namespace Game_StoreAPI.Controllers
             {
                 if (id == 0)
                 {
-                    _response.IsSuccess=false;
+                    _response.IsSuccess = false;
                     return BadRequest();
                 }
                 var game = _contextGame.Get(n => n.Id == id);
-                if (game==null)
+                if (game == null)
                 {
                     _response.IsSuccess = false;
                     return NotFound();
@@ -158,14 +158,15 @@ namespace Game_StoreAPI.Controllers
                 _response.IsSuccess = true;
                 _response.StatusCode = HttpStatusCode.NoContent;
                 return Ok(_response);
-            }catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages=new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return _response;
         }
-        [HttpPut("{id:int}",Name ="UpdateGame")]
+        [HttpPut("{id:int}", Name = "UpdateGame")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -180,18 +181,29 @@ namespace Game_StoreAPI.Controllers
                     _response.IsSuccess = false;
                     return BadRequest();
                 }
-                var model = _mapper.Map<Game>(gameUpdateDTO);
+                var gamePlatforms=_contextGamePlatform.GetAll();
+                if (gameUpdateDTO.PlatformIds.Any())
+                {
+                    foreach (var item in gamePlatforms)
+                    {
+                        var existingGamePlatforms = _contextGamePlatform.Get(gp => gp.GameId == id);
+                        if (existingGamePlatforms == null)
+                            break;
+                        _contextGamePlatform.Remove(existingGamePlatforms);
+                    }
+                }
 
+                var model = _mapper.Map<Game>(gameUpdateDTO);
                 _contextGame.Update(model);
 
                 if (gameUpdateDTO.PlatformIds != null && gameUpdateDTO.PlatformIds.Any())
                 {
                     foreach (var platformId in gameUpdateDTO.PlatformIds)
                     {
-                        var gamePlatform = new GamePlatformUpdateDTO { GameId = model.Id, PlatformId = platformId };
                         var platform = _contextPlatform.Get(n => n.Id == platformId);
-                        var modelGamePlatform = new GamePlatform { GameId = model.Id, PlatformId = platformId, Game = model, Platform = platform };
-                        _contextGamePlatform.Update(modelGamePlatform);
+                        var gamePlatform = new GamePlatformUpdateDTO { GameId = model.Id, Game = model, PlatformId = platformId, Platform = platform };
+                        var modelGamePlatform = _mapper.Map<GamePlatform>(gamePlatform);
+                        _contextGamePlatform.Create(modelGamePlatform);
                     }
                 }
 
@@ -200,14 +212,17 @@ namespace Game_StoreAPI.Controllers
                 _response.StatusCode = HttpStatusCode.NoContent;
 
                 return Ok(_response);
-            }catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 _response.IsSuccess = false;
-                _response.ErrorMessages=new List<string> { ex.ToString() };
+                _response.ErrorMessages = new List<string> { ex.ToString() };
             }
             return _response;
         }
-            
+
+
+
 
     }
 }

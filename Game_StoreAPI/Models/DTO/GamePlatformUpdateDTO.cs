@@ -6,7 +6,9 @@ namespace Game_StoreAPI.Models.DTO
     {
         [Required]
         public int GameId { get; set; }
+        public Game? Game { get; set; }
         [Required]
         public int PlatformId { get; set; }
+        public Platform? Platform { get; set; }
     }
 }
