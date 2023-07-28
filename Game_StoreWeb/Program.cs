@@ -1,4 +1,6 @@
 using Game_StoreWeb;
+using Game_StoreWeb.Services;
+using Game_StoreWeb.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +9,9 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-//builder.Services.AddAutoMapper(typeof(Mapping));
-
+builder.Services.AddAutoMapper(typeof(Mapping));
+builder.Services.AddHttpClient<IGameTypeService, GameTypeService>();
+builder.Services.AddScoped<IGameTypeService, GameTypeService>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
