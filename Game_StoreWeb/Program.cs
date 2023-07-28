@@ -12,6 +12,8 @@ var app = builder.Build();
 builder.Services.AddAutoMapper(typeof(Mapping));
 builder.Services.AddHttpClient<IGameTypeService, GameTypeService>();
 builder.Services.AddScoped<IGameTypeService, GameTypeService>();
+builder.Services.AddHttpClient<IGameCompanyService, GameCompanyService>();
+builder.Services.AddScoped<IGameCompanyService, GameCompanyService>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
