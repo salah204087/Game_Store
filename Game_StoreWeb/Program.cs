@@ -16,6 +16,8 @@ builder.Services.AddHttpClient<IGameCompanyService, GameCompanyService>();
 builder.Services.AddScoped<IGameCompanyService, GameCompanyService>();
 builder.Services.AddHttpClient<IPlatformService, PlatformService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
+builder.Services.AddHttpClient<IGameService, GameService>();
+builder.Services.AddScoped<IGameService, GameService>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
