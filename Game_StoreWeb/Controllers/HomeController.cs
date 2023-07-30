@@ -17,7 +17,10 @@ namespace Game_StoreWeb.Controllers
         {
             return View();
         }
-
+        public ActionResult Platform()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
