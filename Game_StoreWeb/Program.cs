@@ -4,10 +4,6 @@ using Game_StoreWeb.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
 
 builder.Services.AddAutoMapper(typeof(Mapping));
 builder.Services.AddHttpClient<IGameTypeService, GameTypeService>();
@@ -18,6 +14,12 @@ builder.Services.AddHttpClient<IPlatformService, PlatformService>();
 builder.Services.AddScoped<IPlatformService, PlatformService>();
 builder.Services.AddHttpClient<IGameService, GameService>();
 builder.Services.AddScoped<IGameService, GameService>();
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+var app = builder.Build();
+
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
