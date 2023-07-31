@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Game_StoreWeb.Models.DTO.GameDTO>
+@{
+    ViewData["Title"] = "List of Games";
+}
+
+<link rel="stylesheet" href="~/css/game.css" />
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="@item.ImageUrl" alt="@item.Name">
+                </div>
+                <div class="card-header">
+                    <h5 class="card-title">@item.Name</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text"><b>Game Company: </b>@item.GameCompany.Name</p>
+                    <p class="card-text"><b>Type: </b>@item.GameType.Name</p>
+                    <p class="card-text"><b>Price: </b>@item.Price</p>
+                    <div class="rating-container">
+                        <span class="rating-value">Rate: </span>
+                        <div class="rating" data-rating="@item.Rate">
+                            <div class="rating-star" data-value="1"></div>
+                            <div class="rating-star" data-value="2"></div>
+                            <div class="rating-star" data-value="3"></div>
+                            <div class="rating-star" data-value="4"></div>
+                            <div class="rating-star" data-value="5"></div>
+                            <input class="rating-input" type="number" min="0" max="5" step="0.1" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer btn-container">
+
+                    <a href="#" class="btn btn-outline-primary">
+                        <i class="bi bi-eye-fill"></i> Show Details
+                    </a>
+                    <button class="btn btn-success text-white" onclick="addToCart('@item.Name', @item.Price)">
+                        <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<script>
+    // JavaScript to handle cart functionality
+    function addToCart(name, price) {
+        // Replace this with your actual cart handling logic
+        alert(`Added ${name} to cart. Price: ${price}`);
+    }
+
+    // JavaScript to set the rating value from the backend
+    const gameRatings = {
+    @foreach (var item in Model)
+    {
+        @: "@item.Name": @item.Rate,
+    }
+            };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const ratingDivs = document.querySelectorAll(".rating");
+
+        ratingDivs.forEach(ratingDiv => {
+            const ratingValue = parseFloat(ratingDiv.getAttribute("data-rating"));
+            const input = ratingDiv.querySelector(".rating-input");
+            setRatingValue(ratingDiv, input, ratingValue);
+        });
+    });
+
+    function setRatingValue(ratingDiv, input, value) {
+        const stars = ratingDiv.querySelectorAll(".rating-star");
+        const floatValue = parseFloat(value);
+
+        stars.forEach(star => {
+            const starValue = parseFloat(star.getAttribute("data-value"));
+            if (starValue <= floatValue) {
+                star.classList.remove("empty-star");
+            } else {
+                star.classList.add("empty-star");
+            }
+        });
+
+        input.value = floatValue.toFixed(1);
+    }
+</script>

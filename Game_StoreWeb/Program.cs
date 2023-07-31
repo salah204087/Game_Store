@@ -15,6 +15,14 @@ builder.Services.AddScoped<IPlatformService, PlatformService>();
 builder.Services.AddHttpClient<IGameService, GameService>();
 builder.Services.AddScoped<IGameService, GameService>();
 // Add services to the container.
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -34,6 +42,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",

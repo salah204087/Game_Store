@@ -26,13 +26,30 @@ namespace Game_StoreWeb.Controllers
             _platformService = platformService;
 
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> IndexPc()
         {
             List<GameDTO> list = new();
             var response=await _gameService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
             if (response !=null && response.IsSuccess)
                 list=JsonConvert.DeserializeObject<List<GameDTO>>(Convert.ToString(response.Result));
-            return View(list);
+            return View(list.Where(n=>n.GamePlatform.Any(n=>n.PlatformId==3)));
+        }
+        public async Task<IActionResult> IndexPs()
+        {
+            List<GameDTO> list = new();
+            var response = await _gameService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            if (response != null && response.IsSuccess)
+                list = JsonConvert.DeserializeObject<List<GameDTO>>(Convert.ToString(response.Result));
+            return View(list.Where(n => n.GamePlatform.Any(n => n.PlatformId == 1 || n.PlatformId == 2)));
+        }
+        public async Task<IActionResult> IndexXbox()
+        {
+            List<GameDTO> list = new();
+            var response = await _gameService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            if (response != null && response.IsSuccess)
+                list = JsonConvert.DeserializeObject<List<GameDTO>>(Convert.ToString(response.Result));
+            return View(list.Where(n => n.GamePlatform.Any(n => n.PlatformId == 5 
+            || n.PlatformId == 6 || n.PlatformId==7 || n.PlatformId == 8)));
         }
         public async Task<IActionResult> Create()
         {
