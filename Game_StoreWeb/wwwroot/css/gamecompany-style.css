@@ -1,0 +1,125 @@
+﻿body {
+    background-color: #f2f2f2;
+}
+
+/* Title style */
+h2 {
+    color: #007bff;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Form container style */
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Form label style */
+.form-group label {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input field style */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    width: 600px; /* Adjust the width to make the input box wider */
+    max-width: 225%;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+/* Success button style */
+.btn-outline-success {
+    background-color: #28a745;
+    color: #fff;
+    border-color: #28a745;
+    margin-right: 10px;
+}
+
+    .btn-outline-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+
+/* Secondary button style */
+.btn-outline-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border-color: #6c757d;
+}
+
+    .btn-outline-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+/* Select dropdown style */
+.custom-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    padding-right: 24px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+.arrow-icon {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: #000 transparent transparent transparent;
+    pointer-events: none;
+}
+
+/* Image preview style */
+.profile-image-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #007bff;
+}
+
+/* Center the form */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    width: 100%;
+    max-width: 400px;
+}
+
+.text-center {
+    text-align: center;
+}

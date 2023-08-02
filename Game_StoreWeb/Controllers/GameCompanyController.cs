@@ -90,16 +90,14 @@ namespace Game_StoreWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(GameCompanyDTO gameCompanyDTO)
         {
-            if (ModelState.IsValid)
-            {
-                var response = await _gameCompanyService
-                    .DeleteAsync<APIResponse>(gameCompanyDTO.Id, HttpContext.Session.GetString(SD.SessionToken));
+           
+            var response = await _gameCompanyService
+                  .DeleteAsync<APIResponse>(gameCompanyDTO.Id, HttpContext.Session.GetString(SD.SessionToken));
                 if (response!=null && response.IsSuccess)
                 {
                     TempData["success"] = "Game Company Deleted Successfully";
                     return RedirectToAction("Index");
                 }
-            }
             TempData["error"] = "Error Encountered";
             return View(gameCompanyDTO);
         }

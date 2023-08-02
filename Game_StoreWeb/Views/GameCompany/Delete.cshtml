@@ -1,0 +1,85 @@
+﻿@model Game_StoreWeb.Models.DTO.GameCompanyDTO
+
+@{
+    ViewData["Title"] = "Delete Game Company";
+}
+<link rel="stylesheet" href="~/css/gamecompany-style.css" />
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="form-container animated-form">
+            <h2>Delete Game Company</h2>
+            <div class="profile-image-container">
+                <img src="" id="ImageUrlPreview" class="profile-image" />
+            </div>
+            <form asp-action="Delete" id="gameForm">
+                <input hidden asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" disabled />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Details" class="control-label"></label>
+                            <textarea asp-for="Details" class="form-control" disabled></textarea>
+                            <span asp-validation-for="Details" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ImageUrl" class="control-label"></label>
+                            <input asp-for="ImageUrl" class="form-control" id="ImageUrl" disabled />
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EstablishmentDate" class="control-label"></label>
+                            <input asp-for="EstablishmentDate" class="form-control" disabled />
+                            <span asp-validation-for="EstablishmentDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 offset-4 text-center">
+                    <img width="100%" id="ImageUrlPreview" />
+                </div>
+
+                <div class="text-center">
+                    <input type="submit" value="Delete" class="btn btn-outline-danger" />
+                    <a class="btn btn-outline-secondary" asp-action="Index" asp-controller="GameCompany">Show all</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var imageUrlInput = $("#ImageUrl");
+            var imageUrlPreview = document.getElementById("ImageUrlPreview");
+            updateImagePreview(imageUrlInput.val(), imageUrlPreview);
+
+            imageUrlInput.on("change", function () {
+                updateImagePreview($(this).val(), imageUrlPreview);
+            });
+
+            function updateImagePreview(imageUrl, previewElement) {
+                if (imageUrl && isValidImageUrl(imageUrl)) {
+                    previewElement.src = imageUrl;
+                    $(".profile-image-container").show();
+                } else {
+                    previewElement.src = "";
+                    $(".profile-image-container").hide();
+                }
+            }
+
+            function isValidImageUrl(url) {
+                return true;
+            }
+        });
+    </script>
+}
