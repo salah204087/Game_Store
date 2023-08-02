@@ -105,7 +105,7 @@ namespace Game_StoreWeb.Controllers
                 if (response !=null && response.IsSuccess) 
                 {
                     TempData["success"] = "Game Created Successfully";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Platform","Home");
                 }
                 else
                 {
@@ -213,12 +213,11 @@ namespace Game_StoreWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _gameService
-                    .UpdateAsync<APIResponse>(gameUpdateVM.Game, HttpContext.Session.GetString(SD.SessionToken));
-                if (response != null && response.IsSuccess) 
+                var response = await _gameService.UpdateAsync<APIResponse>(gameUpdateVM.Game, HttpContext.Session.GetString(SD.SessionToken));
+                if (response != null && response.IsSuccess)
                 {
-                    TempData["success"] = "Game Updated Succssefully";
-                    return RedirectToAction("Index");
+                    TempData["success"] = "Game Updated Successfully";
+                    return RedirectToAction("Platform", "Home");
                 }
                 else
                 {
@@ -228,6 +227,7 @@ namespace Game_StoreWeb.Controllers
                     }
                 }
             }
+
             var gameComapanyResponse = await _gameCompanyService
                .GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
             if (gameComapanyResponse != null && gameComapanyResponse.IsSuccess)
@@ -266,9 +266,11 @@ namespace Game_StoreWeb.Controllers
                         Value = n.Id.ToString(),
                     });
             }
+
             TempData["error"] = "Error Encountered.";
             return View(gameUpdateVM);
         }
+
         public async Task<IActionResult> Delete(int id)
         {
             GameDeleteVM gameDeleteVM = new();
@@ -328,7 +330,7 @@ namespace Game_StoreWeb.Controllers
             if (response != null && response.IsSuccess) 
             {
                 TempData["success"] = "Game Deleted Successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction("Platform", "Home");
             }
             TempData["error"] = "Error Encountered.";
             return View(gameDeleteVM);
