@@ -61,7 +61,7 @@ namespace Game_StoreWeb.Services
             {
                 ApiType = SD.ApiType.PUT,
                 Data = gameTypeUpdateDTO,
-                Url = gameStoreUrl + "api/GameTypeAPI/" + gameTypeUpdateDTO.Id,
+                Url = gameStoreUrl + "/api/GameTypeAPI/" + gameTypeUpdateDTO.Id,
                 Token = token
             });
         }

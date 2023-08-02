@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Game_StoreWeb.Models.DTO.GameTypeDTO>
+@{
+    ViewData["Title"] = "List of Game Type";
+}
+
+<link rel="stylesheet" href="~/css/gametype.css" />
+
+<div class="card-container row">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="front-content">
+                <p>@item.Name</p>
+            </div>
+            <div class="content">
+                <p class="heading">@item.Name</p>
+                <p>@item.About</p>
+                <div class="card__icons">
+                    <a asp-action="Update" asp-controller="GameType" asp-route-id="@item.Id" class="card__icon update">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a asp-action="Delete" asp-controller="GameType" asp-route-id="@item.Id" class="card__icon delete">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div style="position:fixed; right:25px;bottom:25px" class="text-white">
+    <a asp-controller="GameType" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
+</div>
