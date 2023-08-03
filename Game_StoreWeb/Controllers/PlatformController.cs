@@ -89,17 +89,14 @@ namespace Game_StoreWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(PlatformDTO platformDTO)
         {
-            if (ModelState.IsValid)
-            {
-                var response = await _platformService
-                    .DeleteAsync<APIResponse>(platformDTO.Id, HttpContext.Session.GetString(SD.SessionToken));
+            
+            var response = await _platformService
+                 .DeleteAsync<APIResponse>(platformDTO.Id, HttpContext.Session.GetString(SD.SessionToken));
                 if (response !=null &&response.IsSuccess)
                 {
                     TempData["success"] = "Platform Deleted Successfully";
                     return RedirectToAction("Index");
                 }
-
-            }
             TempData["error"] = "Error Encountered";
             return View(platformDTO);
         }
