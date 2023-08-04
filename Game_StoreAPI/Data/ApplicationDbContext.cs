@@ -1,15 +1,18 @@
 ﻿using Game_StoreAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace Game_StoreAPI.Data
 {
-    public class ApplicationDbContext:DbContext
+    public class ApplicationDbContext:IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<LocalUser> LocalUsers { get; set; }
         public DbSet<GameType> GameTypes { get; set; }
         public DbSet<GameCompany> GameCompanies { get; set; }
         public DbSet<Platform> Platforms { get; set; }

@@ -2,8 +2,10 @@
 using Game_StoreAPI.Models;
 using Game_StoreAPI.Models.DTO;
 using Game_StoreAPI.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Net;
 
 namespace Game_StoreAPI.Controllers
@@ -75,6 +77,7 @@ namespace Game_StoreAPI.Controllers
             return _response;
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -110,6 +113,7 @@ namespace Game_StoreAPI.Controllers
             return _response;
         }
         [HttpDelete("{id:int}",Name="DeleteGameType")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -142,6 +146,7 @@ namespace Game_StoreAPI.Controllers
             return _response;
         }
         [HttpPut("{id:int}",Name ="UpdateGameType")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
