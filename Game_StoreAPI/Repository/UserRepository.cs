@@ -92,7 +92,9 @@ namespace Game_StoreAPI.Repository
                         await _roleManager.CreateAsync(new IdentityRole("admin"));
                         await _roleManager.CreateAsync(new IdentityRole("Customer"));
                     }
-                    await _userManager.AddToRoleAsync(user, "admin");
+                    string roleToAdd = registrationRequestDTO.Role.ToLower() == "customer" ? "customer" : "admin";
+                    await _userManager.AddToRoleAsync(user, roleToAdd);
+
                     var userToReturn = _context.ApplicationUsers
                         .FirstOrDefault(n => n.UserName == registrationRequestDTO.UserName);
                     return _mapper.Map<UserDTO>(userToReturn);

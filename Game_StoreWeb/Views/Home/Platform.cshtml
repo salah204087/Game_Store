@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Game_StoreUtility
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpAcc
+@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -7,6 +9,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/platform.css" />
+    <link rel="stylesheet" href="~/css/navbar.css" />
+
     <link rel="stylesheet" href="~/css/sweetalert2.min.css" />
     <script src="~/js/sweetalert2.min.js"></script>
     <title>
@@ -14,6 +18,44 @@
     </title>
 </head>
 <body>
+    <div class="menu-wrap">
+        <input type="checkbox" class="toggler">
+        <div class="hamburger"><div></div></div>
+        <div class="menu">
+            <div>
+                <div>
+                    <ul>
+                        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                        <li><a asp-action="Platform" asp-controller="Home">Games</a></li>
+                        <li><a asp-action="Index" asp-controller="GameCompany">Game Company</a></li>
+                        <li><a asp-action="Index" asp-controller="GameType">Game Type</a></li>
+                        <li><a asp-action="Index" asp-controller="Platform">Platform</a></li>
+                        @if (httpAcc.HttpContext.Session.GetString(SD.SessionToken) != null &&
+                        httpAcc.HttpContext.Session.GetString(SD.SessionToken).ToString().Length > 0)
+                        {
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                            {
+                                <li><a asp-controller="Auth" asp-action="Register">Add new admin</a></li>
+
+                            }
+                            <li>
+                                <a asp-controller="Auth" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-controller="Auth" asp-action="Login">Login</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Auth" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="split left">
             <h1>Playstation</h1>

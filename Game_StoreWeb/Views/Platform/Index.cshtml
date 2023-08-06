@@ -10,18 +10,25 @@
     {
         <div class="card">
             <p class="c-txt">@item.Name</p>
-            <div class="card__icons">
-                <a asp-action="Update" asp-controller="Platform" asp-route-id="@item.Id" class="card__icon update">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a asp-action="Delete" asp-controller="Platform" asp-route-id="@item.Id" class="card__icon delete">
-                    <i class="fas fa-trash-alt"></i>
-                </a>
-            </div>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+            {
+                <div class="card__icons">
+                    <a asp-action="Update" asp-controller="Platform" asp-route-id="@item.Id" class="card__icon update">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a asp-action="Delete" asp-controller="Platform" asp-route-id="@item.Id" class="card__icon delete">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            }
+            
         </div>
     }
 </div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <div style="position:fixed; right:25px;bottom:25px" class="text-white">
+        <a asp-controller="Platform" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
+    </div>
+}
 
-<div style="position:fixed; right:25px;bottom:25px" class="text-white">
-    <a asp-controller="Platform" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
-</div>

@@ -1,4 +1,6 @@
-﻿<link rel="stylesheet" href="~/css/navbar.css" />
+﻿﻿﻿@using Game_StoreUtility
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpAcc
+<link rel="stylesheet" href="~/css/navbar.css" />
 
 <div class="menu-wrap">
     <input type="checkbox" class="toggler">
@@ -12,6 +14,27 @@
                     <li><a asp-action="Index" asp-controller="GameCompany">Game Company</a></li>
                     <li><a asp-action="Index" asp-controller="GameType">Game Type</a></li>
                     <li><a asp-action="Index" asp-controller="Platform">Platform</a></li>
+                     @if (httpAcc.HttpContext.Session.GetString(SD.SessionToken) != null &&
+                            httpAcc.HttpContext.Session.GetString(SD.SessionToken).ToString().Length > 0)
+                    {
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                        {
+                            <li><a asp-controller="Auth" asp-action="Register">Add new admin</a></li>
+
+                        }
+                        <li>
+                            <a asp-controller="Auth" asp-action="Logout">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a  asp-controller="Auth" asp-action="Login">Login</a>
+                        </li>
+                        <li>
+                            <a  asp-controller="Auth" asp-action="Register">Register</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

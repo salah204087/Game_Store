@@ -3,8 +3,10 @@ using Game_StoreUtility;
 using Game_StoreWeb.Models;
 using Game_StoreWeb.Models.DTO;
 using Game_StoreWeb.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace Game_StoreWeb.Controllers
 {
@@ -25,11 +27,13 @@ namespace Game_StoreWeb.Controllers
                 list = JsonConvert.DeserializeObject<List<PlatformDTO>>(Convert.ToString(response.Result));
             return View(list);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PlatformCreateDTO platformCreateDTO)
         {
@@ -46,6 +50,7 @@ namespace Game_StoreWeb.Controllers
             TempData["error"] = "Error Encountered";
             return View(platformCreateDTO);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(int id)
         {
             var response = await _platformService
@@ -58,6 +63,7 @@ namespace Game_StoreWeb.Controllers
             return NotFound();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(PlatformDTO platformDTO)
         {
@@ -74,6 +80,7 @@ namespace Game_StoreWeb.Controllers
             TempData["error"] = "Error Encountered";
             return View(platformDTO);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _platformService
@@ -86,6 +93,7 @@ namespace Game_StoreWeb.Controllers
             return NotFound();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(PlatformDTO platformDTO)
         {

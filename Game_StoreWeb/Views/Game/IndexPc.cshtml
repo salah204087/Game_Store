@@ -34,26 +34,33 @@
                         </div>
                     </div>
                     <div class="card-footer btn-container">
-
-                        <a asp-action="Delete" asp-controller="Game"asp-route-id="@item.Id" class="btn btn-outline-danger">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <a asp-action="Delete" asp-controller="Game" asp-route-id="@item.Id" class="btn btn-outline-danger">
                             <i class="fa-solid fa-trash"></i> Delete
                         </a>
+                    }
                         <button class="btn btn-success text-white" onclick="addToCart('@item.Name', @item.Price)">
                         <i class="fa-solid fa-cart-shopping"></i> Add to Cart @item.Price.ToString("c")
                         </button>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
                         <a asp-action="Update" asp-controller="Game" asp-route-id="@item.Id" class="btn btn-outline-primary">
                             <i class="fa-solid fa-pen-to-square"></i> Edit
-                        </a>       
+                        </a>
+                    }                
                     </div>
                 </div>
             </div>
         
     }
 </div>
-<div style="position:fixed; right:25px;bottom:25px" class="text-white">
-    <a asp-controller="Game" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
-</div>
-
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <div style="position:fixed; right:25px;bottom:25px" class="text-white">
+        <a asp-controller="Game" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
+    </div>
+}
 <script>
    
     function addToCart(name, price) {

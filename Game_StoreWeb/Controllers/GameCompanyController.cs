@@ -3,8 +3,10 @@ using Game_StoreUtility;
 using Game_StoreWeb.Models;
 using Game_StoreWeb.Models.DTO;
 using Game_StoreWeb.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace Game_StoreWeb.Controllers
 {
@@ -25,11 +27,13 @@ namespace Game_StoreWeb.Controllers
                 list=JsonConvert.DeserializeObject<List<GameCompanyDTO>>(Convert.ToString(response.Result));
             return View(list);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GameCompanyCreateDTO gameCompanyCreateDTO)
         {
@@ -46,6 +50,7 @@ namespace Game_StoreWeb.Controllers
             TempData["error"] = "Error Encountered";
             return View(gameCompanyCreateDTO);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(int id)
         {
             var response = await _gameCompanyService
@@ -58,6 +63,7 @@ namespace Game_StoreWeb.Controllers
             return NotFound();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(GameCompanyDTO gameCompanyDTO)
         {
@@ -75,6 +81,7 @@ namespace Game_StoreWeb.Controllers
             TempData["error"] = "Error Encountered";
             return View(gameCompanyDTO);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var response = await _gameCompanyService
@@ -87,6 +94,7 @@ namespace Game_StoreWeb.Controllers
             return NotFound();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(GameCompanyDTO gameCompanyDTO)
         {

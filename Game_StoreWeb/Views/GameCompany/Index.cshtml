@@ -18,12 +18,16 @@
                     <p class="card__description">@item.Details</p>
                     <p class="card__establishment-date">Establishment Date : @item.EstablishmentDate</p>
                     <div class="card__icons">
-                        <a asp-action="Update" asp-controller="GameCompany" asp-route-id="@item.Id" class="card__icon update">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a asp-action="Delete" asp-controller="GameCompany" asp-route-id="@item.Id" class="card__icon delete">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                        {
+                            <a asp-action="Update" asp-controller="GameCompany" asp-route-id="@item.Id" class="card__icon update">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="Delete" asp-controller="GameCompany" asp-route-id="@item.Id" class="card__icon delete">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        }
+                       
                     </div>
                 </div>  
             </div>
@@ -31,6 +35,10 @@
     }
 
 </div>
-<div style="position:fixed; right:25px;bottom:25px" class="text-white">
-    <a asp-controller="GameCompany" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
-</div>
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <div style="position:fixed; right:25px;bottom:25px" class="text-white">
+        <a asp-controller="GameCompany" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
+    </div>
+}
+

@@ -4,9 +4,11 @@ using Game_StoreWeb.Models;
 using Game_StoreWeb.Models.DTO;
 using Game_StoreWeb.Models.VM;
 using Game_StoreWeb.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace Game_StoreWeb.Controllers
 {
@@ -51,6 +53,7 @@ namespace Game_StoreWeb.Controllers
             return View(list.Where(n => n.GamePlatform.Any(n => n.PlatformId == 5 
             || n.PlatformId == 6 || n.PlatformId==7 || n.PlatformId == 8)));
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create()
         {
             GameCreateVM gameCreateVM = new();
@@ -95,6 +98,7 @@ namespace Game_StoreWeb.Controllers
             return View(gameCreateVM);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GameCreateVM gameCreateVM)
         {
@@ -156,6 +160,7 @@ namespace Game_StoreWeb.Controllers
             TempData["error"] = "Error Encountered.";
             return View(gameCreateVM);
         }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Update(int id)
         {
             GameUpdateVM gameUpdateVM = new();
@@ -208,6 +213,7 @@ namespace Game_StoreWeb.Controllers
            
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(GameUpdateVM gameUpdateVM)
         {
@@ -270,7 +276,7 @@ namespace Game_StoreWeb.Controllers
             TempData["error"] = "Error Encountered.";
             return View(gameUpdateVM);
         }
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int id)
         {
             GameDeleteVM gameDeleteVM = new();
@@ -322,6 +328,7 @@ namespace Game_StoreWeb.Controllers
             return NotFound();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(GameDeleteVM gameDeleteVM)
         {
