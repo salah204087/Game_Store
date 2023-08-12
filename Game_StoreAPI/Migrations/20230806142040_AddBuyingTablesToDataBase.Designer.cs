@@ -4,6 +4,7 @@ using Game_StoreAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game_StoreAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230806142040_AddBuyingTablesToDataBase")]
+    partial class AddBuyingTablesToDataBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,7 +148,7 @@ namespace Game_StoreAPI.Migrations
                         new
                         {
                             Id = 1,
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3738),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8780),
                             Description = "The game is played from either a third-person or first-person perspective, and its world is navigated on foot and by vehicle. Players control the three lead protagonists throughout single-player and switch among them, both during and outside missions.",
                             GameCompanyId = 4,
                             GameTypeId = 1,
@@ -154,12 +157,12 @@ namespace Game_StoreAPI.Migrations
                             Price = 70f,
                             Quantity = 6,
                             Rate = 4.5f,
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3745)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8787)
                         },
                         new
                         {
                             Id = 2,
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3751),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8797),
                             Description = "Call of Duty: Modern Warfare is a 2019 first-person shooter video game developed by Infinity Ward and published by Activision.",
                             GameCompanyId = 4,
                             GameTypeId = 2,
@@ -168,12 +171,12 @@ namespace Game_StoreAPI.Migrations
                             Price = 60f,
                             Quantity = 10,
                             Rate = 4f,
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3755)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8800)
                         },
                         new
                         {
                             Id = 3,
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3760),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8804),
                             Description = "Assassin's Creed Origins is a 2017 action role-playing video game developed by Ubisoft Montreal and published by Ubisoft.",
                             GameCompanyId = 2,
                             GameTypeId = 1,
@@ -182,12 +185,12 @@ namespace Game_StoreAPI.Migrations
                             Price = 50f,
                             Quantity = 6,
                             Rate = 5f,
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3763)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8807)
                         },
                         new
                         {
                             Id = 4,
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3769),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8810),
                             Description = "God of War is an action-adventure game franchise created by David Jaffe at Sony's Santa Monica Studio.",
                             GameCompanyId = 5,
                             GameTypeId = 1,
@@ -196,7 +199,7 @@ namespace Game_StoreAPI.Migrations
                             Price = 90f,
                             Quantity = 5,
                             Rate = 4.5f,
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3772)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8813)
                         });
                 });
 
@@ -360,41 +363,41 @@ namespace Game_StoreAPI.Migrations
                         {
                             Id = 1,
                             About = "An adventure game (rarely called quest game) is a video game genre in which the player assumes the role of a protagonist in an interactive story, driven by exploration and/or puzzle-solving.",
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3125),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8301),
                             Name = "Adventure game",
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3201)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8380)
                         },
                         new
                         {
                             Id = 2,
                             About = "Action games emphasize physical challenges that require hand-eye coordination and motor skill to overcome. They center around the player, who is in control of most of the action. Most of the earliest video games were considered action games; today, it is still a vast genre covering all games that involve physical challenges.",
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3207),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8384),
                             Name = "Action",
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3210)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8386)
                         },
                         new
                         {
                             Id = 3,
                             About = "Simulation video games are a diverse super-category of video games, generally designed to closely simulate real world activities",
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3215),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8390),
                             Name = "Simulation video game",
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3218)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8392)
                         },
                         new
                         {
                             Id = 4,
                             About = "A sports video game is a video game that simulates the practice of sports. Most sports have been recreated with a video games, including team sports, track and field, extreme sports, and combat sports.",
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3222),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8396),
                             Name = "Sports",
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3226)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8398)
                         },
                         new
                         {
                             Id = 5,
                             About = "Platform games (or platformers) have gameplay primarily centered around jumping and climbing to navigate the player's environment. They may have enemies or obstacles to avoid and fight or may just be pure jumping puzzles.",
-                            AddedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3230),
+                            AddedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8400),
                             Name = "Platform game",
-                            UpdatedDate = new DateTime(2023, 8, 8, 18, 3, 17, 575, DateTimeKind.Local).AddTicks(3233)
+                            UpdatedDate = new DateTime(2023, 8, 6, 17, 20, 40, 270, DateTimeKind.Local).AddTicks(8403)
                         });
                 });
 
@@ -544,7 +547,7 @@ namespace Game_StoreAPI.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("GameId")
+                    b.Property<int?>("GameId")
                         .HasColumnType("int");
 
                     b.Property<string>("ShoppingCartId")
@@ -760,9 +763,7 @@ namespace Game_StoreAPI.Migrations
                 {
                     b.HasOne("Game_StoreAPI.Models.Game", "Game")
                         .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GameId");
 
                     b.Navigation("Game");
                 });

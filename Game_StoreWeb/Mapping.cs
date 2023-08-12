@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Game_StoreAPI.Models;
 using Game_StoreWeb.Models.DTO;
 
 namespace Game_StoreWeb
@@ -21,6 +22,9 @@ namespace Game_StoreWeb
 
             CreateMap<GamePlatformDTO,GamePlatformCreateDTO>().ReverseMap();
             CreateMap<GamePlatformDTO,GamePlatformUpdateDTO>().ReverseMap();
+
+            CreateMap<OrderDTO,Order>().ReverseMap();
+            CreateMap<OrderItemDTO,OrderItem>().ReverseMap();
         }
     }
 }

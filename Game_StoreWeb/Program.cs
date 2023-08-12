@@ -1,10 +1,23 @@
+using Game_StoreAPI.Repository.IRepository;
+using Game_StoreAPI.Repository;
 using Game_StoreWeb;
+using Game_StoreWeb.Models;
 using Game_StoreWeb.Services;
 using Game_StoreWeb.Services.IServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Game_StoreAPI.Data;
+using Microsoft.EntityFrameworkCore;
+using Game_StoreAPI.Models;
+using Microsoft.AspNetCore.Identity;
+using Game_StoreAPI.Services.IServices;
+using Game_StoreAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 builder.Services.AddAutoMapper(typeof(Mapping));
 builder.Services.AddHttpClient<IGameTypeService, GameTypeService>();
@@ -17,6 +30,10 @@ builder.Services.AddHttpClient<IGameService, GameService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddHttpClient<IAuthService, AuthService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
@@ -42,6 +59,7 @@ builder.Services.AddSession(options =>
 
 
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 

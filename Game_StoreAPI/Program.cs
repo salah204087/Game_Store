@@ -3,6 +3,8 @@ using Game_StoreAPI.Data;
 using Game_StoreAPI.Models;
 using Game_StoreAPI.Repository;
 using Game_StoreAPI.Repository.IRepository;
+using Game_StoreAPI.Services;
+using Game_StoreAPI.Services.IServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,10 @@ builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGamePlatformRepository, GamePlatformRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+builder.Services.AddScoped<IShoppingCartItemRepository, ShoppingcartItemRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddAutoMapper(typeof(Mapping));
 

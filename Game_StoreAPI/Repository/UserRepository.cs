@@ -59,7 +59,9 @@ namespace Game_StoreAPI.Repository
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name,user.UserName.ToString()),
-                    new Claim(ClaimTypes.Role,roles.FirstOrDefault())
+                    new Claim(ClaimTypes.Email,user.UserName.ToString()),
+                    new Claim(ClaimTypes.Role,roles.FirstOrDefault()),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

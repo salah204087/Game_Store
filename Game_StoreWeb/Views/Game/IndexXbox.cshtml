@@ -41,9 +41,8 @@
                             <i class="fa-solid fa-trash"></i> Delete
                         </a>
                     }
-                    <button class="btn btn-success text-white" onclick="addToCart('@item.Name', @item.Price)">
-                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart @item.Price.ToString("c")
-                    </button>
+                    <a class="btn btn-success text-white" asp-controller="Order" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id"><i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))</a>
+
                     @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
                     {
                         <a asp-action="Update" asp-controller="Game" asp-route-id="@item.Id" class="btn btn-outline-primary">
@@ -62,43 +61,3 @@
         <a asp-controller="Game" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
     </div>
 }
-
-<script>
-    function addToCart(name, price) {
-        alert(`Added ${name} to cart. Price: ${price}`);
-    }
-
-   
-    const gameRatings = {
-    @foreach (var item in Model)
-    {
-        @: "@item.Name": @item.Rate,
-    }
-            };
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const ratingDivs = document.querySelectorAll(".rating");
-
-        ratingDivs.forEach(ratingDiv => {
-            const ratingValue = parseFloat(ratingDiv.getAttribute("data-rating"));
-            const input = ratingDiv.querySelector(".rating-input");
-            setRatingValue(ratingDiv, input, ratingValue);
-        });
-    });
-
-    function setRatingValue(ratingDiv, input, value) {
-        const stars = ratingDiv.querySelectorAll(".rating-star");
-        const floatValue = parseFloat(value);
-
-        stars.forEach(star => {
-            const starValue = parseFloat(star.getAttribute("data-value"));
-            if (starValue <= floatValue) {
-                star.classList.remove("empty-star");
-            } else {
-                star.classList.add("empty-star");
-            }
-        });
-
-        input.value = floatValue.toFixed(1);
-    }
-</script>

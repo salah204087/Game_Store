@@ -18,6 +18,9 @@ namespace Game_StoreAPI.Data
         public DbSet<Platform> Platforms { get; set; }
         public DbSet<GamePlatform> GamePlatform { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

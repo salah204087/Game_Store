@@ -14,6 +14,7 @@
                     <li><a asp-action="Index" asp-controller="GameCompany">Game Company</a></li>
                     <li><a asp-action="Index" asp-controller="GameType">Game Type</a></li>
                     <li><a asp-action="Index" asp-controller="Platform">Platform</a></li>
+                    <li><a asp-action="Index" asp-controller="Order">Orders</a></li>
                      @if (httpAcc.HttpContext.Session.GetString(SD.SessionToken) != null &&
                             httpAcc.HttpContext.Session.GetString(SD.SessionToken).ToString().Length > 0)
                     {
