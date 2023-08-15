@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure;
 using Game_StoreUtility;
 using Game_StoreWeb.Models;
 using Game_StoreWeb.Models.DTO;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Data;
 
 namespace Game_StoreWeb.Controllers
@@ -52,6 +54,70 @@ namespace Game_StoreWeb.Controllers
                 list = JsonConvert.DeserializeObject<List<GameDTO>>(Convert.ToString(response.Result));
             return View(list.Where(n => n.GamePlatform.Any(n => n.PlatformId == 5 
             || n.PlatformId == 6 || n.PlatformId==7 || n.PlatformId == 8)));
+        }
+        public async Task<IActionResult> FilterPc(string searchString)
+        {
+            List<GameDTO> allGames = new();
+            var response= await _gameService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            allGames= JsonConvert.DeserializeObject<List<GameDTO>>(Convert.ToString(response.Result));
+            var gamePc = allGames.Where(n => n.GamePlatform.Any(n => n.PlatformId == 3));
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = gamePc.Where((n => n.Name.Contains(searchString) || n.Description.Contains(searchString))).ToList();
+                if (filteredResult.Any())
+                {
+                    return View("IndexPc", filteredResult);
+                }
+                else
+                {
+                    TempData["error"] = "Not Found";
+                    return View("IndexPc", gamePc);
+                }
+            }
+            return View("IndexPc", gamePc);
+        }
+        public async Task<IActionResult> FilterPs(string searchString)
+        {
+            List<GameDTO> allGames = new();
+            var response = await _gameService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            allGames = JsonConvert.DeserializeObject<List<GameDTO>>(Convert.ToString(response.Result));
+            var gamePs = allGames.Where(n => n.GamePlatform.Any(n => n.PlatformId == 1 || n.PlatformId == 2));
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = gamePs.Where((n => n.Name.Contains(searchString) || n.Description.Contains(searchString))).ToList();
+                if (filteredResult.Any())
+                {
+                    return View("IndexPs", filteredResult);
+                }
+                else
+                {
+                    TempData["error"] = "Not Found";
+                    return View("IndexPs", gamePs);
+                }
+            }
+            return View("IndexPs", gamePs);
+        }
+        public async Task<IActionResult> FilterXbox(string searchString)
+        {
+            List<GameDTO> allGames = new();
+            var response = await _gameService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            allGames = JsonConvert.DeserializeObject<List<GameDTO>>(Convert.ToString(response.Result));
+            var gameXbox = allGames.Where(n => n.GamePlatform.Any(n => n.PlatformId == 5
+            || n.PlatformId == 6 || n.PlatformId == 7 || n.PlatformId == 8));
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = gameXbox.Where((n => n.Name.Contains(searchString) || n.Description.Contains(searchString))).ToList();
+                if (filteredResult.Any())
+                {
+                    return View("IndexXbox", filteredResult);
+                }
+                else
+                {
+                    TempData["error"] = "Not Found";
+                    return View("IndexXbox", gameXbox);
+                }
+            }
+            return View("IndexXbox", gameXbox);
         }
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create()

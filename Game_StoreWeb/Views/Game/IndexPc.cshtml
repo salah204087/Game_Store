@@ -5,6 +5,20 @@
 
 <link rel="stylesheet" href="~/css/game.css" />
 
+<div style="position: absolute; top: 15px; right: 15px;">
+    <form class="form-inline" asp-controller="Game" asp-action="FilterPc">
+        <div class="input-group">
+            <input name="searchString" type="text" class="form-control rounded-pill border-0 shadow-sm" placeholder="Search for a game..." aria-label="Recipient's username" aria-describedby="button-addon2" style="max-width: 300px; background-color: #f8f9fa;">
+            <div class="input-group-append">
+                <button class="btn btn-success rounded-pill ms-2 shadow-sm" style="background-color:black" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<br />
+<br />
 <div class="row">
     @foreach (var item in Model)
     {
