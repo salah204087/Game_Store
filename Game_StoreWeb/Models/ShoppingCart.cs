@@ -1,6 +1,7 @@
 ﻿using Game_StoreAPI.Data;
 using Game_StoreAPI.Models;
 using Game_StoreWeb.Models.DTO;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Data.Entity;
 
@@ -26,20 +27,29 @@ namespace Game_StoreWeb.Models
             public void AddItemToCart(Game game)
             {
                 var ShoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Game.Id == game.Id && n.ShoppingCartId == ShoppingCartId);
+            if (game.Quantity > 0)
+            {
                 if (ShoppingCartItem == null)
                 {
                     ShoppingCartItem = new ShoppingCartItem()
                     {
                         ShoppingCartId = ShoppingCartId,
-                        Game = _context.Games.FirstOrDefault(n=>n.Id==game.Id),
+                        Game = _context.Games.FirstOrDefault(n => n.Id == game.Id),
                         Amount = 1
                     };
+                    game.Quantity--;
+                    _context.Games.Update(game);
                     _context.ShoppingCartItems.Add(ShoppingCartItem);
                 }
                 else
+                {
                     ShoppingCartItem.Amount++;
+                    game.Quantity--;
+                }
                 _context.SaveChanges();
             }
+            
+        }
             public void RemoveItemFromCart(Game game)
             {
                 var ShoppingCartItem = _context.ShoppingCartItems.FirstOrDefault(n => n.Game.Id == game.Id && n.ShoppingCartId == ShoppingCartId);
@@ -48,10 +58,14 @@ namespace Game_StoreWeb.Models
                     if (ShoppingCartItem.Amount > 1)
                     {
                         ShoppingCartItem.Amount--;
+                        game.Quantity++;
+                        _context.Games.Update(game);
                     }
                     else
                     {
-                        _context.ShoppingCartItems.Remove(ShoppingCartItem);
+                    game.Quantity++;
+                    _context.Games.Update(game);
+                    _context.ShoppingCartItems.Remove(ShoppingCartItem);
                     }
 
                 }
@@ -71,15 +85,27 @@ namespace Game_StoreWeb.Models
             return ShoppingCartItems ?? (ShoppingCartItems = items);
         }
         public double GetShoppingCartTotal()
-            {
-                var total = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Game.Price * n.Amount).Sum();
-                return total;
-            }
-            public void ClearShoppingCart()
-            {
-                var items = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToList();
-                _context.ShoppingCartItems.RemoveRange(items);
-                _context.SaveChanges();
-            }
+        {
+            var total = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Game.Price * n.Amount).Sum();
+            return total;
         }
+        public void ClearShoppingCart()
+        {
+            var items = _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToList();
+
+            foreach (var item in items)
+            {
+                var game = _context.Games.FirstOrDefault(n => n.Id == item.Game.Id);
+                if (game != null)
+                {
+                    game.Quantity += item.Amount;
+                    _context.Games.Update(game);
+                }
+            }
+
+            _context.ShoppingCartItems.RemoveRange(items);
+            _context.SaveChanges();
+        }
+
+    }
 }

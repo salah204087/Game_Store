@@ -34,10 +34,17 @@
                                 <i class="fa-solid fa-minus"></i>
                             </a>
                             |
-                            <a class="text-success" asp-controller="Order" asp-action="AddItemToShoppingCart"
-                               asp-route-id="@item.Game.Id">
-                                <i class="fa-solid fa-plus"></i>
-                            </a>
+                            @if (item.Game.Quantity > 0)
+                            {
+                                <a class="text-success" asp-controller="Order" asp-action="AddItemToShoppingCart"
+                                   asp-route-id="@item.Game.Id">
+                                    <i class="fa-solid fa-plus"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Out of stock</span>
+                            }
                         </td>
                     </tr>
                 }
