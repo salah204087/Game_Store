@@ -19,15 +19,18 @@ namespace Game_StoreWeb.Controllers
         private readonly IOrderService _ordersService;
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration _configuration;
 
 
-        public OrderController(IGameRepository gameRepository, ShoppingCart shoppingCart, IOrderService ordersService, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
+
+        public OrderController(IGameRepository gameRepository, ShoppingCart shoppingCart, IOrderService ordersService, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             _gameRepository = gameRepository;
             _shoppingCart = shoppingCart;
             _ordersService = ordersService;
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _configuration = configuration;
         }
         [Authorize]
         public IActionResult Index()
@@ -78,5 +81,6 @@ namespace Game_StoreWeb.Controllers
             _shoppingCart.ClearShoppingCart();
             return View("OrderCompleted");
         }
+
     }
 }

@@ -66,8 +66,8 @@
                 @*<a class="btn btn-outline-primary" asp-action="CompleteOrder">
                     Complete order
                 </a>*@
-                <div id="paypal-btn"></div>
-                 <span style="padding:5px"></span>
+                <div id="paypal-button-container"></div>
+                <span style="padding:5px"></span>
                 <a class="btn btn-outline-success" asp-controller="Home" asp-action="Platform">
                     Add more items
                 </a>
@@ -76,51 +76,26 @@
 
     </div>
 </div>
-@section Scripts{
-
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-
+@section Scripts {
+    <script src="https://www.paypal.com/sdk/js?client-id=ARyC2kyopye1pdyBKtak-2Re4BXmVqfHEUdDWf6tuH7Jajew3y3-CT5akqkKk5fgUIegASODyu1ScpYM&disable-funding=credit,card"></script>
     <script>
         let _total = @Html.Raw(Model.ShoppingCartTotal);
-        paypal.Button.render({
-            //Configure environment
-            env: 'sandbox',
-            client: {
-                sandbox: 'ARyC2kyopye1pdyBKtak-2Re4BXmVqfHEUdDWf6tuH7Jajew3y3-CT5akqkKk5fgUIegASODyu1ScpYM'
-            },
-
-            //Customize button
-            locale: 'en_US',
-            style: {
-                size: 'small',
-                color: 'gold',
-                shape: 'pill'
-            },
-            commit: true,
-
-            //Set up a payment
-            payment: function (data, actions) {
-                return actions.payment.create({
-                    transactions: [{
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
                         amount: {
-                            total: _total,
-                            currency: 'USD'
+                            value: _total
                         }
                     }]
                 });
             },
-
-            //Execute the payment
-            onAuthorize: function (data, actions) {
-                return actions.payment.execute().then(function () {
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (details) {
                     var url = '@Url.Action("CompleteOrder","Order")';
                     window.location.href = url;
-                }).catch(function (error) {
-                    console.error("Payment execution failed:", error);
                 });
             }
-
-
-        }, '#paypal-btn')
+        }).render('#paypal-button-container');
     </script>
 }
