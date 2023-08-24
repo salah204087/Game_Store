@@ -34,17 +34,15 @@
                     <p class="card-text"><b>Game Company: </b>@item.GameCompany.Name</p>
                     <p class="card-text"><b>Type: </b>@item.GameType.Name</p>
                     <p class="card-text"><b>Price: </b>@item.Price</p>
-                    <div class="rating-container">
-                        <span class="rating-value">Rate: </span>
-                        <div class="rating" data-rating="@item.Rate">
-                            <div class="rating-star" data-value="1"></div>
-                            <div class="rating-star" data-value="2"></div>
-                            <div class="rating-star" data-value="3"></div>
-                            <div class="rating-star" data-value="4"></div>
-                            <div class="rating-star" data-value="5"></div>
-                            <input class="rating-input" type="number" min="0" max="5" step="0.1" />
-                        </div>
+                    <div class="rating">
+                        <p class="card-text">
+                            <b>Rate: </b>
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                <div class="rating-star @((item.Rate >= i) ? "selected" : "empty-star")"></div>
+                            }
                     </div>
+
                 </div>
                 <div class="card-footer btn-container">
 
@@ -82,3 +80,40 @@
         <a asp-controller="Game" asp-action="Create" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Add New </a>
     </div>
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ratingContainers = document.querySelectorAll('.rating');
+
+        ratingContainers.forEach(ratingContainer => {
+            const ratingStars = ratingContainer.querySelectorAll('.rating-star');
+            const ratingInput = ratingContainer.querySelector('.rating-input');
+            const currentRating = parseFloat(ratingInput.value);
+
+            ratingStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const value = parseFloat(star.getAttribute('data-value'));
+                    updateRating(ratingContainer, value);
+                    ratingInput.value = value; // Update the rating input value
+                });
+            });
+
+            updateRating(ratingContainer, currentRating);
+        });
+    });
+
+    function updateRating(ratingContainer, value) {
+        const ratingStars = ratingContainer.querySelectorAll('.rating-star');
+
+        ratingStars.forEach(star => {
+            const starValue = parseFloat(star.getAttribute('data-value'));
+            star.classList.toggle('empty-star', starValue > value);
+            star.classList.remove('selected'); // Remove the 'selected' class from all stars
+        });
+
+        const selectedStars = ratingContainer.querySelectorAll('.rating-star.selected');
+        selectedStars.forEach(star => {
+            star.classList.remove('empty-star');
+            star.classList.add('selected');
+        });
+    }
+</script>

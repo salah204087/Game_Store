@@ -75,7 +75,6 @@
     color: #f7bf16;
     font-size: 18px;
     margin-right: 3px;
-    cursor: pointer;
 }
 
     .rating-star::before {
@@ -85,6 +84,8 @@
 .empty-star::before {
     content: "\2606";
 }
+
+
 
 /* Hide the input field */
 .rating-input {
